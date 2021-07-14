@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['0.0.0.0', '*']
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
+    'forms.apps.FormsConfig',
     'the_most_awesome_library',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -124,6 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
