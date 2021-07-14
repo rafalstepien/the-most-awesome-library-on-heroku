@@ -1,12 +1,17 @@
 asgiref==3.4.1
+autopep8 @ file:///tmp/build/80754af9/autopep8_1620866417880/work
 certifi==2021.5.30
 dj-database-url==0.5.0
 Django==3.2.5
+django-bootstrap-datepicker-plus==3.0.5
+django-crispy-forms==1.12.0
 django-heroku==0.0.0
 gunicorn==20.1.0
 psycopg2-binary==2.9.1
+pycodestyle @ file:///tmp/build/80754af9/pycodestyle_1615748559966/work
 pytz==2021.1
 selenium==3.141.0
 sqlparse==0.4.1
+toml @ file:///tmp/build/80754af9/toml_1616166611790/work
 urllib3==1.26.6
 whitenoise==5.2.0

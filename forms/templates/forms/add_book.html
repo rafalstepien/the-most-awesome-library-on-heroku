@@ -1,0 +1,14 @@
+{% extends "the_most_awesome_library/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}]
+    <header>
+        <h2 class="text-center"> Add new book to the database </h2>
+        <div class="container px-4 text-center w-50">
+            <form method="post" class="form-group mt-10">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" value="Submit" class="btn-success mt-5">
+            </form>
+        </div>
+    </header> 
+{% endblock content %}
