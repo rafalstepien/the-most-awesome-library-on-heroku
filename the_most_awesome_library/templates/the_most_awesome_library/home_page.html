@@ -1,0 +1,11 @@
+{% extends "the_most_awesome_library/base.html" %}
+{% block content %}
+            <!-- Header-->
+            <header class="bg-secondary bg-gradient">
+                <div class="container px-4 text-center">
+                    <h1 class="fw-bolder">Welcome in our books library</h1>
+                    <p class="lead">Here you can browse all books from database, entered by hand or imported from Google API </p>
+                    <a class="btn btn-lg btn-light" href="{% url 'all_books' %}">Start viewing!</a>
+                </div>
+            </header>
+{% endblock content %}
