@@ -9,3 +9,6 @@ class Book(models.Model):
     pages_number = models.IntegerField()
     cover_link = models.CharField(max_length=200)
     language = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'Book({self.title} by {self.author})'
