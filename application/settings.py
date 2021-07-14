@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -85,11 +86,16 @@ WSGI_APPLICATION = 'application.wsgi.application'
 #     }
 # }
 
-db_name = 'library'
-db_user = 'rafalstepien'
-db_password = 'admin123'
-db_port = 5432
-db_host = 'localhost'
+env_file = 'database/database.env'
+load_dotenv(env_file)
+
+db_name = os.environ.get('POSTGRES_DB')
+db_user = os.environ.get('POSTGRES_USER')
+db_password = os.environ.get('POSTGRES_PASSWORD')
+db_port = os.environ.get('POSTGRES_PORT')
+db_host = os.environ.get('POSTGRES_HOST')
+
+
 
 DATABASES = {
     'default': {
