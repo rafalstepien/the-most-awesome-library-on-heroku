@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import ModelForm
 from the_most_awesome_library.models import Book
-from bootstrap_datepicker_plus import DatePickerInput
 
 
 class DateInput(forms.DateInput):
