@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import load_dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -86,25 +85,15 @@ WSGI_APPLICATION = 'application.wsgi.application'
 #     }
 # }
 
-env_file = 'database/database.env'
-load_dotenv(env_file)
-
-db_name = os.environ.get('POSTGRES_DB')
-db_user = os.environ.get('POSTGRES_USER')
-db_password = os.environ.get('POSTGRES_PASSWORD')
-db_port = os.environ.get('POSTGRES_PORT')
-db_host = os.environ.get('POSTGRES_HOST')
-
-
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': db_name,
-        'USER': db_user,
-        'PASSWORD': db_password,
-        'HOST': db_host,
-        'PORT': db_port,
+        'NAME': 'd4af23cq7e6469',
+        'USER': 'rcodyvivkmbtkd',
+        'PASSWORD': 'b2586a7e3b5eca8fb6ae45ec8b6132cc24d46f0f6804af49beadd94cb7160dca',
+        'HOST': 'ec2-18-207-95-219.compute-1.amazonaws.com',
+        'PORT': 5432,
     }
 }
 
