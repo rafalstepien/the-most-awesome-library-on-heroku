@@ -2,9 +2,10 @@ from django.shortcuts import render, HttpResponseRedirect
 from forms import forms
 from datetime import date
 from the_most_awesome_library.models import Book
+from forms.book_extraction import *
 
 
-def submit_new_book(request):
+def add_new_book(request):
     if request.method == 'POST':
 
         form = forms.AddBookForm(request.POST)
@@ -64,3 +65,19 @@ def browse_books(request):
     
     return render(request, 'forms/browse_books.html', {'form': form,
                                                        'all_books': matching_books})
+
+
+def add_new_book_by_keywords(request):
+    if request.method == 'POST':
+        form = forms.SearchKeywordForm(request.POST)
+
+        if form.is_valid():
+            keywords = form.cleaned_data.get('keywords')
+            found_books = find_books_from_google_API_by_keywords(keywords)
+
+    else:
+        form = forms.SearchKeywordForm()
+        found_books = None
+    
+    return render(request, 'forms/add_book_by_keywords.html', {'form': form,
+                                                               'found_books': found_books})

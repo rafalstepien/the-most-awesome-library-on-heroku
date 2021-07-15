@@ -1,0 +1,48 @@
+{% extends "the_most_awesome_library/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}]
+    <div class="mt-5">
+        <h2 class="text-center"> Add new book from Google using keywords </h2>
+    </div> 
+
+    <div class="container px-4 text-center w-50 mt-5">
+        <form method="post" class="form-group mt-10">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Search" class="btn btn-success mt-5">
+        </form>
+    </div>
+
+    <div style="height: 400px;" class="w-100 container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <table class="table table-hover table-bordered table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Publication date</th>
+                        <th scope="col">ISBN Number</th>
+                        <th scope="col">Number of pages</th>
+                        <th scope="col">Cover</th>
+                        <th scope="col">Language</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in found_books %}
+                        <tr>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.publication_date }}</td>
+                            <td>{{ book.isbn_number }}</td>
+                            <td>{{ book.pages_number }}</td>
+                            <td>{{ book.cover_link }}</td>
+                            <td>{{ book.language }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

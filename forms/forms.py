@@ -47,3 +47,8 @@ class SearchForm(ModelForm):
             'author',
             'language'
         ]
+
+
+class SearchKeywordForm(forms.Form):
+    keywords = forms.CharField(label='Searching keywords', required=True)
+

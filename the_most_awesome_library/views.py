@@ -14,3 +14,6 @@ def all_books_view(request):
 def add_book_view(request):
     return render(request, 'the_most_awesome_library/add_book.html')
 
+
+def add_book_by_keywords(request):
+    return render(request, 'forms/add_book_by_keywords.html')
