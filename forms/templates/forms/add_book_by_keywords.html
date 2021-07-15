@@ -1,8 +1,10 @@
 {% extends "the_most_awesome_library/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}]
-    <div class="mt-5">
-        <h2 class="text-center"> Add new book from Google using keywords </h2>
+    <div class="mt-5 text-center">
+        <h2> Add new book from Google using keywords </h2>
+        <p>Just enter search terms and used keywords as shown <a href="https://developers.google.com/books/docs/v1/using#WorkingVolumes">here</a></p>
+        <p>Examples: <code>flowers inauthor:keyes</code>, <code>intitle:andromeda inauthor:hough</code></p>
     </div> 
 
     <div class="container px-4 text-center w-50 mt-5">
@@ -36,7 +38,7 @@
                             <td>{{ book.publication_date }}</td>
                             <td>{{ book.isbn_number }}</td>
                             <td>{{ book.pages_number }}</td>
-                            <td>{{ book.cover_link }}</td>
+                            <td><a href="{{ book.cover_link }}"> LINK </a></td>
                             <td>{{ book.language }}</td>
                         </tr>
                         {% endfor %}
