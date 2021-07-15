@@ -18,14 +18,12 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="{% url 'all_books' %}">All books</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'add_book' %}">Add book</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'add_book_by_keywords' %}">Add book by keywords</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         {% block content %}{% endblock %}
-        <footer class="py-5 bg-dark fixed-bottom">
-            <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Rafał Stępień </p></div>
-        </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
