@@ -1,0 +1,54 @@
+{% extends "the_most_awesome_library/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <header>
+        <div class="container">
+            <div class="row">
+            {% for field in form  %}
+              <div class="col">
+                {{ field.label }} {{ field }} 
+              </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="text-center">
+            <input type="submit" value="Search" class="btn btn-success mt-2">
+        </div>
+        
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <table class="table table-hover table-bordered table-striped table-responsive">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Publication date</th>
+                            <th scope="col">ISBN Number</th>
+                            <th scope="col">Number of pages</th>
+                            <th scope="col">Cover</th>
+                            <th scope="col">Language</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for book in all_books %}
+                            <tr>
+                                <td>{{ book.id }}</td>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.publication_date }}</td>
+                                <td>{{ book.isbn_number }}</td>
+                                <td>{{ book.pages_number }}</td>
+                                <td>{{ book.cover_link }}</td>
+                                <td>{{ book.language }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock content %}

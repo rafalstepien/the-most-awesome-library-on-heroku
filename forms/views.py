@@ -37,3 +37,12 @@ def submit_new_book(request):
         form = forms.AddBookForm()
 
     return render(request, 'forms/add_book.html', {'form': form})
+
+
+def browse_books(request):
+    if request.method == 'POST':
+        form = forms.SearchForm(request.POST)
+    else:
+        form = forms.SearchForm()
+    
+    return render(request, 'forms/browse_books.html', {'form': form})

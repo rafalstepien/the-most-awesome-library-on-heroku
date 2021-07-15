@@ -33,3 +33,21 @@ class AddBookForm(ModelForm):
         widgets = {
             'publication_date': DateInput(),
         }
+
+
+class SearchForm(ModelForm):
+    title = forms.CharField(label='Book title')
+    author = forms.CharField(label='Author name')
+    language = forms.CharField(label='Publication language')
+    
+    class Meta:
+        model = Book
+        fields = [
+            'title',
+            'author',
+            'language'
+        ]
+        widgets = {
+            'date_1': DateInput(),
+            'date_2': DateInput(),
+        }
