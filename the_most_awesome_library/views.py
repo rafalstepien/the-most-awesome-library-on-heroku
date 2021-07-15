@@ -11,6 +11,6 @@ def all_books_view(request):
     return render(request, 'forms/all_books_page.html', {'all_books': all_books})
 
 
-def edit_view(request):
-    return render(request, 'the_most_awesome_library/edit_page.html')
+def add_book_view(request):
+    return render(request, 'the_most_awesome_library/add_book.html')
 

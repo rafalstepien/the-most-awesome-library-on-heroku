@@ -26,9 +26,9 @@ class BooksPageTest(TestCase):
 
 class EditPageTest(TestCase):
 
-    def test_edit_resolves_to_edit_books_view(self):
-        resolved_function = resolve('/edit/')
+    def test_add_book_resolves_to_add_books_view(self):
+        resolved_function = resolve('/add_book/')
         self.assertEqual(resolved_function.func, forms.views.submit_new_book)
 
-    def test_edit_view_contains_correct_html(self):
+    def test_add_book_view_contains_correct_html(self):
         pass

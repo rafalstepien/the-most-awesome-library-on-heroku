@@ -6,5 +6,5 @@ from forms import views as forms_views
 urlpatterns = [
     path('', views.index, name='index'),
     path('all_books/', forms_views.browse_books, name='all_books'),
-    path('edit/', forms_views.submit_new_book, name='edit'),
+    path('add_book/', forms_views.submit_new_book, name='add_book'),
 ]
