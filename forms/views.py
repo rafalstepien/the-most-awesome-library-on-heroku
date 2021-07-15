@@ -53,9 +53,9 @@ def browse_books(request):
             date_before = date.today() if date_before is None else date_before
 
             matching_books = Book.objects.all() \
-                .filter(title__contains=f'{title}') \
-                .filter(author__contains=f'{author}') \
-                .filter(language__contains=f'{language}') \
+                .filter(title__icontains=f'{title}') \
+                .filter(author__icontains=f'{author}') \
+                .filter(language__icontains=f'{language}') \
                 .filter(publication_date__range=[date_after, date_before])
 
     else:
