@@ -34,11 +34,11 @@ class AddBookForm(ModelForm):
 
 
 class SearchForm(ModelForm):
-    title = forms.CharField(label='Book title')
-    author = forms.CharField(label='Author name')
-    language = forms.CharField(label='Publication language')
-    date_1 = forms.DateField(label="Published after", widget=forms.widgets.DateInput(attrs={'type': 'date'}))
-    date_2 = forms.DateField(label="Published before", widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    title = forms.CharField(label='Book title', required=False)
+    author = forms.CharField(label='Author name', required=False)
+    language = forms.CharField(label='Publication language', required=False)
+    date_after = forms.DateField(label="Published after", widget=forms.widgets.DateInput(attrs={'type': 'date'}), required=False)
+    date_before = forms.DateField(label="Published before", widget=forms.widgets.DateInput(attrs={'type': 'date'}), required=False)
     
     class Meta:
         model = Book
