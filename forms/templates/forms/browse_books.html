@@ -1,8 +1,11 @@
 {% extends "the_most_awesome_library/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <header>
-        <div class="container">
+    <div class="mt-5 pt-5">
+        <div class="text-center">
+            <h2>Browse books</h2>
+        </div>
+        <div class="container mt-5">
             <div class="row">
             {% for field in form  %}
               <div class="col">
@@ -49,6 +52,6 @@
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 
 {% endblock content %}

@@ -18,6 +18,7 @@ class AddBookForm(ModelForm):
         label='Link to cover', max_length=100, required=True)
     language = forms.CharField(
         label='Publication language', max_length=100, required=True)
+    publication_date = forms.DateField(label="Publication date", widget=forms.widgets.DateInput(attrs={'type': 'date'}))
 
     class Meta:
         model = Book
@@ -30,15 +31,14 @@ class AddBookForm(ModelForm):
             'cover_link',
             'language',
         ]
-        widgets = {
-            'publication_date': DateInput(),
-        }
 
 
 class SearchForm(ModelForm):
     title = forms.CharField(label='Book title')
     author = forms.CharField(label='Author name')
     language = forms.CharField(label='Publication language')
+    date_1 = forms.DateField(label="Published after", widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    date_2 = forms.DateField(label="Published before", widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     
     class Meta:
         model = Book
@@ -47,7 +47,3 @@ class SearchForm(ModelForm):
             'author',
             'language'
         ]
-        widgets = {
-            'date_1': DateInput(),
-            'date_2': DateInput(),
-        }

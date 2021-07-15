@@ -1,14 +1,14 @@
 {% extends "the_most_awesome_library/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}]
-    <header>
+    <div class="mt-5">
         <h2 class="text-center"> Add new book to the database </h2>
-        <div class="container px-4 text-center w-50">
+    </div> 
+        <div class="container px-4 text-center w-50 mt-5">
             <form method="post" class="form-group mt-10">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <input type="submit" value="Submit" class="btn-success mt-5">
+                <input type="submit" value="Submit" class="btn btn-success mt-5">
             </form>
         </div>
-    </header> 
 {% endblock content %}
