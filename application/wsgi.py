@@ -11,7 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-if os.environ.get('IS_PRODUCTION_ENVIRONMENT:'):
+if os.environ.get('IS_PRODUCTION_ENVIRONMENT'):
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'application.settings.settings_production')
 else:
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'application.settings.settings_development')
