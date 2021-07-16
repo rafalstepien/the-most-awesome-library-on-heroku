@@ -31,6 +31,8 @@ def add_new_book(request):
             )
 
             book.save()
+            messages.success(request, '''Book has been succesfully dumped to the 
+                database! You can now browse it in "Browse books" section''')
             return HttpResponseRedirect('/add_book')
 
     else:
