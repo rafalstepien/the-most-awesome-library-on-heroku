@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'application.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 load_dotenv('database_production.env')
-DB_NAME = os.environ.get("NAME")
-DB_USER = os.environ.get("USER")
-DB_PASSWORD = os.environ.get("PASSWORD")
-DB_HOST = os.environ.get("HOST")
-DB_PORT = os.environ.get("PORT")
+DB_NAME = os.environ.get("DB_NAME")
+DB_USER = os.environ.get("DB_USER")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+DB_HOST = os.environ.get("DB_HOST")
+DB_PORT = os.environ.get("DB_PORT")
 
 DATABASES = {
     'default': {
