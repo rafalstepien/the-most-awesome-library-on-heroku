@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-)h7qzl*ly%8ux_^@_!e9eoxupb3pp4(7gxt9pf=mvn(khxt$o*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'forms.apps.FormsConfig',
     'the_most_awesome_library',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,22 +79,10 @@ WSGI_APPLICATION = 'application.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd4af23cq7e6469',
-        'USER': 'rcodyvivkmbtkd',
-        'PASSWORD': 'b2586a7e3b5eca8fb6ae45ec8b6132cc24d46f0f6804af49beadd94cb7160dca',
-        'HOST': 'ec2-18-207-95-219.compute-1.amazonaws.com',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
