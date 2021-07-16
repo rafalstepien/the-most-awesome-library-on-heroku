@@ -47,7 +47,7 @@
                                 <td>{{ book.publication_date }}</td>
                                 <td>{{ book.isbn_number }}</td>
                                 <td>{{ book.pages_number }}</td>
-                                <td>{{ book.cover_link }}</td>
+                                <td><a href="{{ book.cover_link }}">Link</a></td>
                                 <td>{{ book.language }}</td>
                             </tr>
                             {% endfor %}

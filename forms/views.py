@@ -3,6 +3,7 @@ from forms import forms
 from datetime import date
 from the_most_awesome_library.models import Book
 from forms.book_extraction import *
+from django.contrib import messages
 
 
 def add_new_book(request):
@@ -62,7 +63,7 @@ def browse_books(request):
     else:
         form = forms.SearchForm()
         matching_books = Book.objects.all()
-    
+
     return render(request, 'forms/browse_books.html', {'form': form,
                                                        'all_books': matching_books})
 
@@ -75,9 +76,15 @@ def add_new_book_by_keywords(request):
             keywords = form.cleaned_data.get('keywords')
             found_books = find_books_from_google_API_by_keywords(keywords)
 
+            if 'ad-to-database-button' in request.POST:
+                for book in found_books:
+                    book.save()
+                messages.success(request, '''All books from table below have been succesfully dumped to the 
+                database! You can now browse them in "Browse books" section''')
+
     else:
         form = forms.SearchKeywordForm()
         found_books = None
-    
+
     return render(request, 'forms/add_book_by_keywords.html', {'form': form,
                                                                'found_books': found_books})

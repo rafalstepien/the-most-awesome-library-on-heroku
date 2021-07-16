@@ -1,17 +1,31 @@
 {% extends "the_most_awesome_library/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}]
-    <div class="mt-5 text-center">
+
+    <div class="mt-5">
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="container mt-5 text-center w-50">
         <h2> Add new book from Google using keywords </h2>
-        <p>Just enter search terms and used keywords as shown <a href="https://developers.google.com/books/docs/v1/using#WorkingVolumes">here</a></p>
-        <p>Examples: <code>flowers inauthor:keyes</code>, <code>intitle:andromeda inauthor:hough</code></p>
+        <p>Just enter search terms and used keywords as shown <a href="https://developers.google.com/books/docs/v1/using#WorkingVolumes">here</a>. 
+            Found books will be displayed in table below. If you are happy enough with the search result, then click <b> Add to database</b> button 
+            and the books will be dumped to the database. You can view them in the "Browse books" section. Enjoy! </b></p>
+        <p>Search terms examples: <code>flowers inauthor:keyes</code>, <code>intitle:andromeda inauthor:hough</code></p>
     </div> 
 
     <div class="container px-4 text-center w-50 mt-5">
         <form method="post" class="form-group mt-10">
             {% csrf_token %}
             {{ form|crispy }}
-            <input type="submit" value="Search" class="btn btn-success mt-5">
+            <input type="submit" value="Search" name="search-button" class="btn btn-success mt-5">
+            <input type="submit" value="Add to database" name="ad-to-database-button" class="btn btn-success mt-5">
         </form>
     </div>
 
@@ -32,15 +46,17 @@
                     </thead>
                     <tbody>
                         {% for book in found_books %}
-                        <tr>
-                            <td>{{ book.title }}</td>
-                            <td>{{ book.author }}</td>
-                            <td>{{ book.publication_date }}</td>
-                            <td>{{ book.isbn_number }}</td>
-                            <td>{{ book.pages_number }}</td>
-                            <td><a href="{{ book.cover_link }}"> LINK </a></td>
-                            <td>{{ book.language }}</td>
-                        </tr>
+                        <form>
+                            <tr>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.publication_date }}</td>
+                                <td>{{ book.isbn_number }}</td>
+                                <td>{{ book.pages_number }}</td>
+                                <td><a href="{{ book.cover_link }}"> LINK </a></td>
+                                <td>{{ book.language }}</td>
+                            </tr>
+                        </form>
                         {% endfor %}
                     </tbody>
                 </table>
