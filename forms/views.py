@@ -1,9 +1,11 @@
+from the_most_awesome_library.serializers import BookSerializer
 from django.shortcuts import render, HttpResponseRedirect
 from forms import forms
 from datetime import date
 from the_most_awesome_library.models import Book
 from forms.book_extraction import *
 from django.contrib import messages
+from rest_framework import viewsets
 
 
 def add_new_book(request):
@@ -90,3 +92,10 @@ def add_new_book_by_keywords(request):
 
     return render(request, 'forms/add_book_by_keywords.html', {'form': form,
                                                                'found_books': found_books})
+
+class BookViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows books to be viewed
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
