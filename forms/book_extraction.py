@@ -19,7 +19,10 @@ def format_keywords(keywords):
 
 def load_response_to_dict(response):
     data = json.loads(response.read())
-    return data['items']
+    try:
+        return data['items']
+    except KeyError:  # when no book is found
+        return {}
 
 
 def extract_just_neccessary_info(books):
