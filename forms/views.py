@@ -49,20 +49,15 @@ def browse_books(request):
         form = forms.SearchForm(request.POST)
 
         if form.is_valid():
+            queryset = Book.objects.all()
             title = form.cleaned_data.get('title')
             author = form.cleaned_data.get('author')
             language = form.cleaned_data.get('language')
             date_after = form.cleaned_data.get('date_after')
             date_before = form.cleaned_data.get('date_before')
 
-            date_after = date(1, 1, 1) if date_after is None else date_after
-            date_before = date.today() if date_before is None else date_before
-
-            matching_books = Book.objects.all() \
-                .filter(title__icontains=f'{title}') \
-                .filter(author__icontains=f'{author}') \
-                .filter(language__icontains=f'{language}') \
-                .filter(publication_date__range=[date_after, date_before])
+            book_filterer = BookFilterer(queryset, title, author, language, date_after, date_before)
+            matching_books = book_filterer.build_queryset()
 
     else:
         form = forms.SearchForm()
@@ -102,22 +97,52 @@ class BookViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Book.objects.all()
-        
+
         title = self.request.query_params.get('title')
         author = self.request.query_params.get('author')
         language = self.request.query_params.get('language')
-        publication_date = self.request.query_params.get('publication_date')
+        date_after = self.request.query_params.get('date_after')
+        date_before = self.request.query_params.get('date_before')
 
-        if title is not None:
-            queryset = queryset.filter(title__icontains=f'{title}')
-        
-        if author is not None:
-            queryset = queryset.filter(author__icontains=f'{author}')
-
-        if language is not None:
-            queryset = queryset.filter(language__icontains=f'{language}')
-
-        if publication_date is not None:
-            queryset = queryset.filter(publication_date__icontains=f'{publication_date}')
-        
+        book_filterer = BookFilterer(queryset, title, author, language, date_after, date_before)
+        queryset = book_filterer.build_queryset()
         return queryset
+
+
+class BookFilterer:
+    def __init__(self, queryset, title, author, language, date_after, date_before):
+        self.queryset = queryset
+        self.title = title
+        self.author = author
+        self.language = language
+        self.date_after = date_after
+        self.date_before = date_before
+
+    def build_queryset(self):
+        self.filter_by_title()
+        self.filter_by_author()
+        self.filter_by_language()
+        self.filter_by_publication_date()
+        return self.queryset
+
+    def filter_by_title(self):
+        if self.title is not None:
+            self.queryset = self.queryset.filter(title__icontains=f'{self.title}')
+
+    def filter_by_author(self):
+        if self.author is not None:
+            self.queryset = self.queryset.filter(author__icontains=f'{self.author}')
+
+    def filter_by_language(self):
+        if self.language is not None:
+            self.queryset = self.queryset.filter(language__icontains=f'{self.language}')
+
+    def filter_by_publication_date(self):
+        if self.date_after is not None and self.date_before is not None:
+            self.queryset = self.queryset.filter(publication_date__range=[self.date_after, self.date_before])
+
+        elif self.date_after is not None:
+            self.queryset = self.queryset.filter(publication_date__gte=self.date_after)
+
+        elif self.date_before is not None:
+            self.queryset = self.queryset.filter(publication_date__gte=self.date_before)
