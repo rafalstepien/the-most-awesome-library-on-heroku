@@ -36,6 +36,7 @@
                             <th scope="col">Number of pages</th>
                             <th scope="col">Cover</th>
                             <th scope="col">Language</th>
+                            <th scope="col">Delete book</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,6 +50,7 @@
                                 <td>{{ book.pages_number }}</td>
                                 <td><a href="{{ book.cover_link }}">Link</a></td>
                                 <td>{{ book.language }}</td>
+                                <td><form method="post">{% csrf_token %}<button type="submit" name="button_number_{{ book.id }}" class="btn btn-danger">Delete</button></form></a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

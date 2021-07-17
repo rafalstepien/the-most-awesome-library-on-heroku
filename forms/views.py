@@ -45,8 +45,12 @@ def add_new_book(request):
 
 def browse_books(request):
     if request.method == 'POST':
-
         form = forms.SearchForm(request.POST)
+
+        if delete_button_is_clicked(request.POST):
+            button_id = get_clicked_button_id(request.POST)
+            book_to_delete = Book.objects.get(pk = button_id)
+            book_to_delete.delete()
 
         if form.is_valid():
             queryset = Book.objects.all()
@@ -65,6 +69,16 @@ def browse_books(request):
 
     return render(request, 'forms/browse_books.html', {'form': form,
                                                        'all_books': matching_books})
+
+
+def get_clicked_button_id(request_post):
+    full_button_name = [key for key in request_post if 'button_number_' in key][0]
+    button_id = int(full_button_name.replace('button_number_', ''))
+    return button_id
+
+
+def delete_button_is_clicked(request_post):
+    return [key for key in request_post if 'button_number_' in key]
 
 
 def add_new_book_by_keywords(request):
