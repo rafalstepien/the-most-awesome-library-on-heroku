@@ -25,6 +25,6 @@ router.register(r'books', BookViewSet, basename='books')
 urlpatterns = [
     path('', include('the_most_awesome_library.urls')),
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api/', include(router.urls), name='api_reference'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
