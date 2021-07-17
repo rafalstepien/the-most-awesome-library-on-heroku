@@ -93,9 +93,31 @@ def add_new_book_by_keywords(request):
     return render(request, 'forms/add_book_by_keywords.html', {'form': form,
                                                                'found_books': found_books})
 
+
 class BookViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows books to be viewed
     """
-    queryset = Book.objects.all()
     serializer_class = BookSerializer
+
+    def get_queryset(self):
+        queryset = Book.objects.all()
+        
+        title = self.request.query_params.get('title')
+        author = self.request.query_params.get('author')
+        language = self.request.query_params.get('language')
+        publication_date = self.request.query_params.get('publication_date')
+
+        if title is not None:
+            queryset = queryset.filter(title__icontains=f'{title}')
+        
+        if author is not None:
+            queryset = queryset.filter(author__icontains=f'{author}')
+
+        if language is not None:
+            queryset = queryset.filter(language__icontains=f'{language}')
+
+        if publication_date is not None:
+            queryset = queryset.filter(publication_date__icontains=f'{publication_date}')
+        
+        return queryset
