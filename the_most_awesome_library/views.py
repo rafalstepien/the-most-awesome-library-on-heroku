@@ -8,7 +8,9 @@ def index(request):
 
 def all_books_view(request):
     all_books = Book.objects.all()
-    return render(request, 'forms/all_books_page.html', {'all_books': all_books})
+    return render(request,
+                  'forms/all_books_page.html',
+                  {'all_books': all_books})
 
 
 def add_book_view(request):

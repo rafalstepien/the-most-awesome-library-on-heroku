@@ -87,8 +87,7 @@ DATABASES = {
         'PASSWORD': 'b2586a7e3b5eca8fb6ae45ec8b6132cc24d46f0f6804af49beadd94cb7160dca',
         'HOST': 'ec2-18-207-95-219.compute-1.amazonaws.com',
         'PORT': 5432,
-    }
-}
+    }}
 
 
 # Password validation

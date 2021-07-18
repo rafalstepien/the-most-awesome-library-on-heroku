@@ -1,9 +1,8 @@
 from the_most_awesome_library.serializers import BookSerializer
 from django.shortcuts import render, HttpResponseRedirect
 from forms import forms
-from datetime import date
 from the_most_awesome_library.models import Book
-from forms.book_extraction import *
+from forms.book_extraction import find_books_from_google_API_by_keywords
 from django.contrib import messages
 from rest_framework import viewsets
 
@@ -33,7 +32,8 @@ def add_new_book(request):
             )
 
             book.save()
-            messages.success(request, '''Book has been succesfully dumped to the 
+            messages.success(
+                request, '''Book has been succesfully dumped to the
                 database! You can now browse it in "Browse books" section''')
             return HttpResponseRedirect('/add_book')
 
@@ -57,7 +57,7 @@ def edit_book(request):
             cover_link = form.cleaned_data.get('cover_link')
             language = form.cleaned_data.get('language')
 
-            book_to_be_edited = Book.objects.get(pk = book_id)
+            book_to_be_edited = Book.objects.get(pk=book_id)
             book_to_be_edited.title = title
             book_to_be_edited.author = author
             book_to_be_edited.publication_date = publication_date
@@ -70,10 +70,9 @@ def edit_book(request):
             messages.success(request, 'Book has been updated')
             return HttpResponseRedirect('/all_books')
 
-
     else:
         book_id = request.GET['book_id']
-        book_to_be_edited = Book.objects.get(pk = book_id)
+        book_to_be_edited = Book.objects.get(pk=book_id)
         form = forms.EditBookForm(initial={
             'title': book_to_be_edited.title,
             'author': book_to_be_edited.author,
@@ -83,7 +82,7 @@ def edit_book(request):
             'language': book_to_be_edited.language,
             'publication_date': book_to_be_edited.publication_date,
         })
-    
+
     return render(request, 'forms/edit_book.html', {'form': form})
 
 
@@ -93,7 +92,7 @@ def browse_books(request):
 
         if delete_button_is_clicked(request.POST):
             button_id = get_clicked_button_id(request.POST)
-            book_to_delete = Book.objects.get(pk = button_id)
+            book_to_delete = Book.objects.get(pk=button_id)
             book_to_delete.delete()
 
         if form.is_valid():
@@ -104,19 +103,21 @@ def browse_books(request):
             date_after = form.cleaned_data.get('date_after')
             date_before = form.cleaned_data.get('date_before')
 
-            book_filterer = BookFilterer(queryset, title, author, language, date_after, date_before)
+            book_filterer = BookFilterer(
+                queryset, title, author, language, date_after, date_before)
             matching_books = book_filterer.build_queryset().order_by('id')
 
     else:
         form = forms.SearchForm()
         matching_books = Book.objects.all().order_by('id')
 
-    return render(request, 'forms/browse_books.html', {'form': form,
-                                                       'all_books': matching_books})
+    return render(request, 'forms/browse_books.html',
+                  {'form': form, 'all_books': matching_books})
 
 
 def get_clicked_button_id(request_post):
-    full_button_name = [key for key in request_post if 'button_number_' in key][0]
+    full_button_name = [
+        key for key in request_post if 'button_number_' in key][0]
     button_id = int(full_button_name.replace('button_number_', ''))
     return button_id
 
@@ -136,15 +137,16 @@ def add_new_book_by_keywords(request):
             if 'ad-to-database-button' in request.POST:
                 for book in found_books:
                     book.save()
-                messages.success(request, '''All books from table below have been succesfully dumped to the 
+                messages.success(
+                    request, '''All books from table below have been succesfully dumped to the
                 database! You can now browse them in "Browse books" section''')
 
     else:
         form = forms.SearchKeywordForm()
         found_books = None
 
-    return render(request, 'forms/add_book_by_keywords.html', {'form': form,
-                                                               'found_books': found_books})
+    return render(request, 'forms/add_book_by_keywords.html',
+                  {'form': form, 'found_books': found_books})
 
 
 class BookViewSet(viewsets.ModelViewSet):
@@ -162,13 +164,26 @@ class BookViewSet(viewsets.ModelViewSet):
         date_after = self.request.query_params.get('date_after')
         date_before = self.request.query_params.get('date_before')
 
-        book_filterer = BookFilterer(queryset, title, author, language, date_after, date_before)
+        book_filterer = BookFilterer(
+            queryset,
+            title,
+            author,
+            language,
+            date_after,
+            date_before)
         queryset = book_filterer.build_queryset()
         return queryset
 
 
 class BookFilterer:
-    def __init__(self, queryset, title, author, language, date_after, date_before):
+    def __init__(
+            self,
+            queryset,
+            title,
+            author,
+            language,
+            date_after,
+            date_before):
         self.queryset = queryset
         self.title = title
         self.author = author
@@ -185,22 +200,29 @@ class BookFilterer:
 
     def filter_by_title(self):
         if self.title is not None:
-            self.queryset = self.queryset.filter(title__icontains=f'{self.title}')
+            self.queryset = self.queryset.filter(
+                title__icontains=f'{self.title}')
 
     def filter_by_author(self):
         if self.author is not None:
-            self.queryset = self.queryset.filter(author__icontains=f'{self.author}')
+            self.queryset = self.queryset.filter(
+                author__icontains=f'{self.author}')
 
     def filter_by_language(self):
         if self.language is not None:
-            self.queryset = self.queryset.filter(language__icontains=f'{self.language}')
+            self.queryset = self.queryset.filter(
+                language__icontains=f'{self.language}')
 
     def filter_by_publication_date(self):
         if self.date_after is not None and self.date_before is not None:
-            self.queryset = self.queryset.filter(publication_date__range=[self.date_after, self.date_before])
+            self.queryset = self.queryset.filter(
+                publication_date__range=[
+                    self.date_after, self.date_before])
 
         elif self.date_after is not None:
-            self.queryset = self.queryset.filter(publication_date__gte=self.date_after)
+            self.queryset = self.queryset.filter(
+                publication_date__gte=self.date_after)
 
         elif self.date_before is not None:
-            self.queryset = self.queryset.filter(publication_date__gte=self.date_before)
+            self.queryset = self.queryset.filter(
+                publication_date__gte=self.date_before)

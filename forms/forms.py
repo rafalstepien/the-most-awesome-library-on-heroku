@@ -18,7 +18,12 @@ class AddBookForm(ModelForm):
         label='Link to cover', required=False)
     language = forms.CharField(
         label='Publication language', required=False)
-    publication_date = forms.DateField(label="Publication date", widget=forms.widgets.DateInput(attrs={'type': 'date'}), required=False)
+    publication_date = forms.DateField(
+        label="Publication date",
+        widget=forms.widgets.DateInput(
+            attrs={
+                'type': 'date'}),
+        required=False)
 
     class Meta:
         model = Book
@@ -37,9 +42,19 @@ class SearchForm(ModelForm):
     title = forms.CharField(label='Book title', required=False)
     author = forms.CharField(label='Author name', required=False)
     language = forms.CharField(label='Publication language', required=False)
-    date_after = forms.DateField(label="Published after", widget=forms.widgets.DateInput(attrs={'type': 'date'}), required=False)
-    date_before = forms.DateField(label="Published before", widget=forms.widgets.DateInput(attrs={'type': 'date'}), required=False)
-    
+    date_after = forms.DateField(
+        label="Published after",
+        widget=forms.widgets.DateInput(
+            attrs={
+                'type': 'date'}),
+        required=False)
+    date_before = forms.DateField(
+        label="Published before",
+        widget=forms.widgets.DateInput(
+            attrs={
+                'type': 'date'}),
+        required=False)
+
     class Meta:
         model = Book
         fields = [
@@ -64,7 +79,12 @@ class EditBookForm(ModelForm):
         label='Link to cover', required=False)
     language = forms.CharField(
         label='Publication language', required=False)
-    publication_date = forms.DateField(label="Publication date", widget=forms.widgets.DateInput(attrs={'type': 'date'}), required=False)
+    publication_date = forms.DateField(
+        label="Publication date",
+        widget=forms.widgets.DateInput(
+            attrs={
+                'type': 'date'}),
+        required=False)
 
     class Meta:
         model = Book
