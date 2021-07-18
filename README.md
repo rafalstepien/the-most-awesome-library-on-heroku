@@ -20,3 +20,8 @@ Just enter the website specified at the top of readme
 - Edit book from database
 - Add book from Google API with using Google's-specific searching keywords
 - Filter API by querystrings
+
+## Samples
+![image](https://user-images.githubusercontent.com/43926522/126082550-f6378965-bbf5-4a35-80c3-e0c160fda8fe.png)
+![image](https://user-images.githubusercontent.com/43926522/126082557-cad22e94-068c-45bb-b65c-7c48e7966267.png)
+![image](https://user-images.githubusercontent.com/43926522/126082562-fdbdad6c-ad4b-407e-8393-b3e6e7fae949.png)
