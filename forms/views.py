@@ -105,11 +105,11 @@ def browse_books(request):
             date_before = form.cleaned_data.get('date_before')
 
             book_filterer = BookFilterer(queryset, title, author, language, date_after, date_before)
-            matching_books = book_filterer.build_queryset()
+            matching_books = book_filterer.build_queryset().order_by('id')
 
     else:
         form = forms.SearchForm()
-        matching_books = Book.objects.all()
+        matching_books = Book.objects.all().order_by('id')
 
     return render(request, 'forms/browse_books.html', {'form': form,
                                                        'all_books': matching_books})
