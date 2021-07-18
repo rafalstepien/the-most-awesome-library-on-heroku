@@ -3,10 +3,11 @@ from forms import forms
 from the_most_awesome_library.models import Book
 from forms.book_extraction import find_books_from_google_API_by_keywords
 from django.contrib import messages
-from forms.utils import delete_button_is_clicked, get_clicked_button_id, BookFilterer
+from forms.utils import (delete_button_is_clicked,
+                         get_clicked_button_id,
+                         BookFilterer)
 from rest_framework import viewsets
 from the_most_awesome_library.serializers import BookSerializer
-from the_most_awesome_library.models import Book
 
 
 def add_new_book_view(request):
@@ -138,7 +139,6 @@ def add_new_book_by_keywords_view(request):
 
     return render(request, 'forms/add_book_by_keywords.html',
                   {'form': form, 'found_books': found_books})
-
 
 
 class BookViewSet(viewsets.ModelViewSet):

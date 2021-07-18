@@ -18,7 +18,7 @@ def find_books_from_google_API_by_keywords(keywords: str) -> List:
     search_terms = format_keywords(keywords)
     response = urlopen(
         f'https://www.googleapis.com/books/v1/volumes?q={search_terms}'
-        ).read()
+    ).read()
     books = load_response_to_dict(response)
     books = extract_just_neccessary_info(books)
     return books
@@ -53,10 +53,11 @@ def load_response_to_dict(response: HttpResponse) -> dict:
 
 
 def extract_just_neccessary_info(books: dict) -> List:
-    """Pass dictionary with books data and create list of book objects based on this data
+    """Pass dictionary with books data and create list of
+    book objects based on this data
 
     Args:
-        books (dict): All books data 
+        books (dict): All books data
 
     Returns:
         [Book]: List of Book objects based on passed data
@@ -73,7 +74,8 @@ def extract_just_neccessary_info(books: dict) -> List:
 
 class BookInfoExtractor:
     """
-    Class handling the extraction of information from book info dictionary and making book objects from it
+    Class handling the extraction of information from book info
+    dictionary and making book objects from it
     """
 
     def __init__(self, book_info_dictionary):
@@ -156,8 +158,10 @@ class BookInfoExtractor:
 
 class SmartDatetimeParser:
     """
-    Class making datetime objects of passed string, handling the exceptions when partial data is passed
+    Class making datetime objects of passed string,
+    handling the exceptions when partial data is passed
     """
+
     def __init__(self, datetime_string):
         self.datetime_string = datetime_string
 

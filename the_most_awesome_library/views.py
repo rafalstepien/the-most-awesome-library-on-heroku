@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from the_most_awesome_library.models import Book
 
 
 def index_page(request):

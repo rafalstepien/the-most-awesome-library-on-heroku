@@ -13,7 +13,8 @@ class UserBehaviorTest(unittest.TestCase):
         self.browser.quit()
 
     def test_user_adds_book_and_finds_it_in_the_table(self):
-        # User enters the all boks page and is able to see table with current books
+        # User enters the all boks page and is able to see table with current
+        # books
         self.browser.get('http://127.0.0.1:8000/all_books/')
         table = self.browser.find_element_by_tag_name('tr').text
         self.assertIn('ID', table)
@@ -40,7 +41,7 @@ class UserBehaviorTest(unittest.TestCase):
         # User finds his book in the database
         table = self.browser.find_element_by_tag_name('tbody').text
         self.assertIn('Harry Potter and The Goblet of Fire', table)
-    
+
     def test_user_filters_books_by_author_and_title(self):
         pass
 
