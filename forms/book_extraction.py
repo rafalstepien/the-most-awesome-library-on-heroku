@@ -6,7 +6,7 @@ from datetime import datetime, date
 from typing import List
 
 
-def find_books_from_google_API_by_keywords(keywords: str) -> List(Book()):
+def find_books_from_google_API_by_keywords(keywords: str) -> List:
     """Pass keywords and obtain list of book objects matching them
 
     Args:
@@ -52,7 +52,7 @@ def load_response_to_dict(response: HttpResponse) -> dict:
         return {}
 
 
-def extract_just_neccessary_info(books: dict) -> List(Book):
+def extract_just_neccessary_info(books: dict) -> List:
     """Pass dictionary with books data and create list of book objects based on this data
 
     Args:
