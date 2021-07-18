@@ -1,0 +1,24 @@
+{% extends "the_most_awesome_library/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}]
+    <div class="mt-5">
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="mt-5">
+        <h2 class="text-center"> Edit book from the database </h2>
+    </div> 
+
+    <div class="container px-4 text-center w-50 mt-5">
+        <form method="post" class="form-group mt-10">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Submit" class="btn btn-success mt-5">
+        </form>
+    </div>
+{% endblock content %}

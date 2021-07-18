@@ -43,6 +43,50 @@ def add_new_book(request):
     return render(request, 'forms/add_book.html', {'form': form})
 
 
+def edit_book(request):
+    if request.method == 'POST':
+        form = forms.SearchBookForm(request.POST)
+        book_id = request.GET['book_id']
+
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            author = form.cleaned_data.get('author')
+            publication_date = form.cleaned_data.get('publication_date')
+            isbn_number = form.cleaned_data.get('isbn_number')
+            pages_number = form.cleaned_data.get('pages_number')
+            cover_link = form.cleaned_data.get('cover_link')
+            language = form.cleaned_data.get('language')
+
+            book_to_be_edited = Book.objects.get(pk = book_id)
+            book_to_be_edited.title = title
+            book_to_be_edited.author = author
+            book_to_be_edited.publication_date = publication_date
+            book_to_be_edited.isbn_number = isbn_number
+            book_to_be_edited.pages_number = pages_number
+            book_to_be_edited.cover_link = cover_link
+            book_to_be_edited.language = language
+            book_to_be_edited.save()
+
+            messages.success(request, 'Book has been updated')
+            return HttpResponseRedirect('/all_books')
+
+
+    else:
+        book_id = request.GET['book_id']
+        book_to_be_edited = Book.objects.get(pk = book_id)
+        form = forms.SearchBookForm(initial={
+            'title': book_to_be_edited.title,
+            'author': book_to_be_edited.author,
+            'isbn_number': book_to_be_edited.isbn_number,
+            'pages_number': book_to_be_edited.pages_number,
+            'cover_link': book_to_be_edited.cover_link,
+            'language': book_to_be_edited.language,
+            'publication_date': book_to_be_edited.publication_date,
+        })
+    
+    return render(request, 'forms/edit_book.html', {'form': form})
+
+
 def browse_books(request):
     if request.method == 'POST':
         form = forms.SearchForm(request.POST)

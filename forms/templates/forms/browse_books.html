@@ -1,6 +1,15 @@
 {% extends "the_most_awesome_library/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+    <div class="mt-5">
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% endif %}
+    </div>
     <div class="mt-5 pt-5">
         <div class="text-center">
             <h2>Browse books</h2>
@@ -37,6 +46,7 @@
                             <th scope="col">Cover</th>
                             <th scope="col">Language</th>
                             <th scope="col">Delete book</th>
+                            <th scope="col">Edit book</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,6 +61,7 @@
                                 <td><a href="{{ book.cover_link }}">Link</a></td>
                                 <td>{{ book.language }}</td>
                                 <td><form method="post">{% csrf_token %}<button type="submit" name="button_number_{{ book.id }}" class="btn btn-danger">Delete</button></form></a></td>
+                                <td><a href="{% url 'edit_book' %}?book_id={{ book.id }}">Edit</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
