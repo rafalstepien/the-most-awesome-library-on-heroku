@@ -8,17 +8,17 @@ class DateInput(forms.DateInput):
 
 
 class AddBookForm(ModelForm):
-    title = forms.CharField(label='Book title', required=True)
+    title = forms.CharField(label='Book title')
     author = forms.CharField(
-        label='Author name', required=True)
+        label='Author name')
     isbn_number = forms.CharField(
-        label='ISBN number', required=True)
-    pages_number = forms.IntegerField(label='Number of pages', required=True)
+        label='ISBN number', required=False)
+    pages_number = forms.IntegerField(label='Number of pages', required=False)
     cover_link = forms.CharField(
-        label='Link to cover', required=True)
+        label='Link to cover', required=False)
     language = forms.CharField(
-        label='Publication language', required=True)
-    publication_date = forms.DateField(label="Publication date", widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+        label='Publication language', required=False)
+    publication_date = forms.DateField(label="Publication date", widget=forms.widgets.DateInput(attrs={'type': 'date'}), required=False)
 
     class Meta:
         model = Book
@@ -58,13 +58,13 @@ class EditBookForm(ModelForm):
     author = forms.CharField(
         label='Author name', required=True)
     isbn_number = forms.CharField(
-        label='ISBN number', required=True)
-    pages_number = forms.IntegerField(label='Number of pages', required=True)
+        label='ISBN number')
+    pages_number = forms.IntegerField(label='Number of pages', required=False)
     cover_link = forms.CharField(
-        label='Link to cover', required=True)
+        label='Link to cover', required=False)
     language = forms.CharField(
-        label='Publication language', required=True)
-    publication_date = forms.DateField(label="Publication date", widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+        label='Publication language', required=False)
+    publication_date = forms.DateField(label="Publication date", widget=forms.widgets.DateInput(attrs={'type': 'date'}), required=False)
 
     class Meta:
         model = Book

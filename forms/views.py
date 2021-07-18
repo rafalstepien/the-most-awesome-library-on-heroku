@@ -45,7 +45,7 @@ def add_new_book(request):
 
 def edit_book(request):
     if request.method == 'POST':
-        form = forms.SearchBookForm(request.POST)
+        form = forms.EditBookForm(request.POST)
         book_id = request.GET['book_id']
 
         if form.is_valid():
@@ -74,7 +74,7 @@ def edit_book(request):
     else:
         book_id = request.GET['book_id']
         book_to_be_edited = Book.objects.get(pk = book_id)
-        form = forms.SearchBookForm(initial={
+        form = forms.EditBookForm(initial={
             'title': book_to_be_edited.title,
             'author': book_to_be_edited.author,
             'isbn_number': book_to_be_edited.isbn_number,
