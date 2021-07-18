@@ -1,6 +1,7 @@
 from datetime import date
 import unittest
 from django import test
+from django.db.models import query
 from django.test import TestCase
 from django.urls import resolve
 from django.http import HttpRequest
@@ -8,9 +9,12 @@ from the_most_awesome_library.views import index_page
 from forms.views import (browse_books_view, 
                          add_new_book_view, 
                          add_new_book_by_keywords_view)
-from forms.book_extraction import (extract_just_neccessary_info, format_keywords, 
+from forms.book_extraction import (BookInfoExtractor, 
+                                   SmartDatetimeParser,
+                                   extract_just_neccessary_info, 
+                                   format_keywords, 
                                    load_response_to_dict)
-from the_most_awesome_library.models import Book
+
 
 
 class HomePageTest(TestCase):
@@ -102,3 +106,46 @@ class BookExtractionTest(unittest.TestCase):
         self.assertTrue(hasattr(parsed_data, 'pages_number'))
         self.assertTrue(hasattr(parsed_data, 'cover_link'))
         self.assertTrue(hasattr(parsed_data, 'language'))
+
+    
+class BookInfoExtractorTest(unittest.TestCase):
+    empty_extractor = BookInfoExtractor({})
+
+    def test_get_book_title(self):
+        self.assertEqual(self.empty_extractor.get_book_title(), '')
+    
+    def test_get_book_author(self):
+        self.assertEqual(self.empty_extractor.get_book_author(), '')
+    
+    def test_get_book_published_date(self):
+        self.assertEqual(self.empty_extractor.get_book_published_date(), date(1, 1, 1))
+    
+    def test_get_book_isbn_number(self):
+        self.assertEqual(self.empty_extractor.get_book_isbn_number(), '')
+    
+    def test_get_book_pages_number(self):
+        self.assertEqual(self.empty_extractor.get_book_page_count(), 0)
+    
+    def test_get_book_cover(self):
+        self.assertEqual(self.empty_extractor.get_book_thumbnail(), '')
+    
+    def test_get_book_language(self):
+        self.assertEqual(self.empty_extractor.get_book_language(), '')
+
+
+class SmartDateTimeParserTest(unittest.TestCase):
+    def test_full_date_is_passed(self):
+        full_date = SmartDatetimeParser('2002-05-10').parse()
+        self.assertEqual(full_date, date(2002, 5, 10))
+
+    def test_just_year_and_month_is_passed(self):
+        just_year_and_month = SmartDatetimeParser('2002-05').parse()
+        self.assertEqual(just_year_and_month, date(2002, 5, 1))
+
+    def test_just_year_is_passed(self):
+        just_year = SmartDatetimeParser('2002').parse()
+        self.assertEqual(just_year, date(2002, 1, 1))
+
+    def test_empty_date_is_passed(self):
+        empty_parser = SmartDatetimeParser('').parse()
+        self.assertEqual(empty_parser, date(1, 1, 1))

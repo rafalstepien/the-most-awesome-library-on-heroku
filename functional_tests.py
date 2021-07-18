@@ -1,8 +1,9 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 
-class UserBrowsingLibraryTest(unittest.TestCase):
+class UserBehaviorTest(unittest.TestCase):
 
     def setUp(self) -> None:
         self.browser = webdriver.Firefox()
@@ -11,54 +12,43 @@ class UserBrowsingLibraryTest(unittest.TestCase):
     def tearDown(self) -> None:
         self.browser.quit()
 
-    # User enters the all boks page and is able to see all books
+    def test_user_adds_book_and_finds_it_in_the_table(self):
+        # User enters the all boks page and is able to see table with current books
+        self.browser.get('http://127.0.0.1:8000/all_books/')
+        table = self.browser.find_element_by_tag_name('tr').text
+        self.assertIn('ID', table)
+        self.assertIn('Title', table)
+        self.assertIn('Author', table)
 
-    # User tries to search book by author
-    # Library returns correct set of books displayed in easy-to-read way
+        # User adds his favorite book to the database
+        self.browser.get('http://127.0.0.1:8000/add_book/')
+        title_inputbox = self.browser.find_element_by_id('id_title')
+        title_inputbox.send_keys('Harry Potter and The Goblet of Fire')
 
-    # User tries to search another book by language
-    # Library returns correct set of books displayed in easy-to-read way
+        author_inputbox = self.browser.find_element_by_id('id_author')
+        author_inputbox.send_keys('J.K. Rowling')
 
-    # User then searches by date range
-    # Library once again returns books published in given date range displayed
-    # in easy-to-read way
+        language_inputbox = self.browser.find_element_by_id('id_language')
+        language_inputbox.send_keys('en')
 
-    # User is satisfied and closes the all books page
+        author_inputbox.send_keys(Keys.ENTER)
+        self.browser.implicitly_wait(10)
 
+        # User navigates to all books view page
+        self.browser.get('http://127.0.0.1:8000/all_books/')
 
-class UserAddingNewBookByHandTest(unittest.TestCase):
+        # User finds his book in the database
+        table = self.browser.find_element_by_tag_name('tbody').text
+        self.assertIn('Harry Potter and The Goblet of Fire', table)
+    
+    def test_user_filters_books_by_author_and_title(self):
+        pass
 
-    def setUp(self) -> None:
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
+    def test_user_editing_existing_book(self):
+        pass
 
-    def tearDown(self) -> None:
-        self.browser.quit()
+    def test_user_editing_existing_book(self):
+        pass
 
-    # User enters the editing page
-
-    # User is encouraged to enter the new book data
-    # User enters all the data needed
-    # The validation of the data is displayed when the data is wrong
-    # User corrects the data
-    # Data is validated again and user can proceed
-    # After clicking enter button the page displays information that the
-    # database is updated
-
-    # User enters the browsing page
-    # User searches the newly uploaded book
-    # The book is correctly displayed
-    # User is happy
-    # User leaves the browsing page
-
-
-class UserEditingExistingBookTest(unittest.TestCase):
-
-    def setUp(self) -> None:
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
-
-    def tearDown(self) -> None:
-        self.browser.quit()
-
-    # TBA
+    def test_user_adding_books_by_keywords(self):
+        pass

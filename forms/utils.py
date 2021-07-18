@@ -52,7 +52,6 @@ class BookFilterer:
                 publication_date__gte=self.date_before)
 
 
-
 def get_clicked_button_id(request_post):
     full_button_name = [
         key for key in request_post if 'button_number_' in key][0]
@@ -62,4 +61,3 @@ def get_clicked_button_id(request_post):
 
 def delete_button_is_clicked(request_post):
     return [key for key in request_post if 'button_number_' in key]
-

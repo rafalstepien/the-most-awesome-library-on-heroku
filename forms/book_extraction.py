@@ -131,11 +131,11 @@ class SmartDatetimeParser:
                 self.datetime_string, '%Y-%m').date()
 
         elif self.just_year_is_passed():
-            datetime_object = datetime.strptime(
-                self.datetime_string, '%Y').date()
-
-        else:
-            datetime_object = date(1, 1, 1)
+            try:
+                datetime_object = datetime.strptime(
+                    self.datetime_string, '%Y').date()
+            except ValueError:
+                datetime_object = date(1, 1, 1)
 
         return datetime_object
 
