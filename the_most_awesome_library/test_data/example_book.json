@@ -1,0 +1,82 @@
+{
+    "kind": "books#volumes",
+    "totalItems": 1,
+    "items": [
+      {
+        "kind": "books#volume",
+        "id": "1KwnsY4pWscC",
+        "etag": "1yxNcFxAuck",
+        "selfLink": "https://www.googleapis.com/books/v1/volumes/1KwnsY4pWscC",
+        "volumeInfo": {
+          "title": "English-Cayuga/Cayuga-English Dictionary",
+          "authors": [
+            "Frances Froman",
+            "Alfred Keye",
+            "Carrie Joan Dyck",
+            "Lottie Keye"
+          ],
+          "publisher": "University of Toronto Press",
+          "publishedDate": "2002-01-01",
+          "description": "The first comprehensive lexicographic work on Cayuga, with over 3000 entries, including 1000 verb forms and many nouns never before printed, extensive cross-referencing, and thematic appendices that highlight cultural references.",
+          "industryIdentifiers": [
+            {
+              "type": "ISBN_10",
+              "identifier": "080203618X"
+            },
+            {
+              "type": "ISBN_13",
+              "identifier": "9780802036186"
+            }
+          ],
+          "readingModes": {
+            "text": false,
+            "image": true
+          },
+          "pageCount": 744,
+          "printType": "BOOK",
+          "categories": [
+            "Foreign Language Study"
+          ],
+          "maturityRating": "NOT_MATURE",
+          "allowAnonLogging": false,
+          "contentVersion": "0.1.3.0.preview.1",
+          "panelizationSummary": {
+            "containsEpubBubbles": false,
+            "containsImageBubbles": false
+          },
+          "imageLinks": {
+            "smallThumbnail": "http://books.google.com/books/content?id=1KwnsY4pWscC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+            "thumbnail": "http://books.google.com/books/content?id=1KwnsY4pWscC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+          },
+          "language": "en",
+          "previewLink": "http://books.google.pl/books?id=1KwnsY4pWscC&pg=PA123&dq=flowers+inauthor:keye&hl=&cd=1&source=gbs_api",
+          "infoLink": "http://books.google.pl/books?id=1KwnsY4pWscC&dq=flowers+inauthor:keye&hl=&source=gbs_api",
+          "canonicalVolumeLink": "https://books.google.com/books/about/English_Cayuga_Cayuga_English_Dictionary.html?hl=&id=1KwnsY4pWscC"
+        },
+        "saleInfo": {
+          "country": "PL",
+          "saleability": "NOT_FOR_SALE",
+          "isEbook": false
+        },
+        "accessInfo": {
+          "country": "PL",
+          "viewability": "PARTIAL",
+          "embeddable": true,
+          "publicDomain": false,
+          "textToSpeechPermission": "ALLOWED",
+          "epub": {
+            "isAvailable": false
+          },
+          "pdf": {
+            "isAvailable": false
+          },
+          "webReaderLink": "http://play.google.com/books/reader?id=1KwnsY4pWscC&hl=&printsec=frontcover&source=gbs_api",
+          "accessViewStatus": "SAMPLE",
+          "quoteSharingAllowed": false
+        },
+        "searchInfo": {
+          "textSnippet": "... go away ] \u003cb\u003eflower\u003c/b\u003e a.we.hę &#39; \u003cb\u003eflower\u003c/b\u003e [ stem : - ( a ) weh ( e ) n- \u003cb\u003eflower\u003c/b\u003e ] a.wę.hę&#39;shộ : &#39; oh a variety of \u003cb\u003eflowers\u003c/b\u003e , plants \u003cb\u003eflower\u003c/b\u003e bed ga.wę.hę.yệt.wah&nbsp;..."
+        }
+      }
+    ]
+  }

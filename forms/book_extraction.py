@@ -8,18 +8,18 @@ def find_books_from_google_API_by_keywords(keywords):
     search_terms = format_keywords(keywords)
     response = urlopen(
         f'https://www.googleapis.com/books/v1/volumes?q={search_terms}'
-        )
+        ).read()
     books = load_response_to_dict(response)
     books = extract_just_neccessary_info(books)
     return books
 
 
 def format_keywords(keywords):
-    return '+'.join(keywords.split(' '))
+    return '+'.join(keywords.strip().split(' '))
 
 
 def load_response_to_dict(response):
-    data = json.loads(response.read())
+    data = json.loads(response)
     try:
         return data['items']
     except KeyError:  # when no book is found

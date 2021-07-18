@@ -1,13 +1,15 @@
-from the_most_awesome_library.serializers import BookSerializer
 from django.shortcuts import render, HttpResponseRedirect
 from forms import forms
 from the_most_awesome_library.models import Book
 from forms.book_extraction import find_books_from_google_API_by_keywords
 from django.contrib import messages
+from forms.utils import delete_button_is_clicked, get_clicked_button_id, BookFilterer
 from rest_framework import viewsets
+from the_most_awesome_library.serializers import BookSerializer
+from the_most_awesome_library.models import Book
 
 
-def add_new_book(request):
+def add_new_book_view(request):
     if request.method == 'POST':
 
         form = forms.AddBookForm(request.POST)
@@ -43,7 +45,7 @@ def add_new_book(request):
     return render(request, 'forms/add_book.html', {'form': form})
 
 
-def edit_book(request):
+def edit_book_view(request):
     if request.method == 'POST':
         form = forms.EditBookForm(request.POST)
         book_id = request.GET['book_id']
@@ -86,7 +88,7 @@ def edit_book(request):
     return render(request, 'forms/edit_book.html', {'form': form})
 
 
-def browse_books(request):
+def browse_books_view(request):
     if request.method == 'POST':
         form = forms.SearchForm(request.POST)
 
@@ -115,18 +117,7 @@ def browse_books(request):
                   {'form': form, 'all_books': matching_books})
 
 
-def get_clicked_button_id(request_post):
-    full_button_name = [
-        key for key in request_post if 'button_number_' in key][0]
-    button_id = int(full_button_name.replace('button_number_', ''))
-    return button_id
-
-
-def delete_button_is_clicked(request_post):
-    return [key for key in request_post if 'button_number_' in key]
-
-
-def add_new_book_by_keywords(request):
+def add_new_book_by_keywords_view(request):
     if request.method == 'POST':
         form = forms.SearchKeywordForm(request.POST)
 
@@ -147,6 +138,7 @@ def add_new_book_by_keywords(request):
 
     return render(request, 'forms/add_book_by_keywords.html',
                   {'form': form, 'found_books': found_books})
+
 
 
 class BookViewSet(viewsets.ModelViewSet):
@@ -173,56 +165,3 @@ class BookViewSet(viewsets.ModelViewSet):
             date_before)
         queryset = book_filterer.build_queryset()
         return queryset
-
-
-class BookFilterer:
-    def __init__(
-            self,
-            queryset,
-            title,
-            author,
-            language,
-            date_after,
-            date_before):
-        self.queryset = queryset
-        self.title = title
-        self.author = author
-        self.language = language
-        self.date_after = date_after
-        self.date_before = date_before
-
-    def build_queryset(self):
-        self.filter_by_title()
-        self.filter_by_author()
-        self.filter_by_language()
-        self.filter_by_publication_date()
-        return self.queryset
-
-    def filter_by_title(self):
-        if self.title is not None:
-            self.queryset = self.queryset.filter(
-                title__icontains=f'{self.title}')
-
-    def filter_by_author(self):
-        if self.author is not None:
-            self.queryset = self.queryset.filter(
-                author__icontains=f'{self.author}')
-
-    def filter_by_language(self):
-        if self.language is not None:
-            self.queryset = self.queryset.filter(
-                language__icontains=f'{self.language}')
-
-    def filter_by_publication_date(self):
-        if self.date_after is not None and self.date_before is not None:
-            self.queryset = self.queryset.filter(
-                publication_date__range=[
-                    self.date_after, self.date_before])
-
-        elif self.date_after is not None:
-            self.queryset = self.queryset.filter(
-                publication_date__gte=self.date_after)
-
-        elif self.date_before is not None:
-            self.queryset = self.queryset.filter(
-                publication_date__gte=self.date_before)
