@@ -1,5 +1,8 @@
 
 class BookFilterer:
+    """
+    Class building filtering queries
+    """
     def __init__(
             self,
             queryset,
@@ -52,7 +55,15 @@ class BookFilterer:
                 publication_date__gte=self.date_before)
 
 
-def get_clicked_button_id(request_post):
+def get_clicked_button_id(request_post: dict) -> int:
+    """Get the ID of clicked button
+
+    Args:
+        request_post (dict): Dictionary with request.POST info
+
+    Returns:
+        int: ID of button being clicked
+    """
     full_button_name = [
         key for key in request_post if 'button_number_' in key][0]
     button_id = int(full_button_name.replace('button_number_', ''))

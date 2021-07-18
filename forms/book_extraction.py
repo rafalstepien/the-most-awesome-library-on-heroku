@@ -1,10 +1,20 @@
 from the_most_awesome_library.models import Book
 from urllib.request import urlopen
 import json
+from django.http import HttpResponse
 from datetime import datetime, date
+from typing import List
 
 
-def find_books_from_google_API_by_keywords(keywords):
+def find_books_from_google_API_by_keywords(keywords: str) -> List(Book()):
+    """Pass keywords and obtain list of book objects matching them
+
+    Args:
+        keywords (str): Keywords used to query the Google API
+
+    Returns:
+        list: List of Book objects found by passed keywords
+    """
     search_terms = format_keywords(keywords)
     response = urlopen(
         f'https://www.googleapis.com/books/v1/volumes?q={search_terms}'
@@ -14,11 +24,27 @@ def find_books_from_google_API_by_keywords(keywords):
     return books
 
 
-def format_keywords(keywords):
+def format_keywords(keywords: str) -> str:
+    """Format passed keywords to match Google API queries
+
+    Args:
+        keywords (str): Keywords to be formatted
+
+    Returns:
+        str: Keywords in correct format
+    """
     return '+'.join(keywords.strip().split(' '))
 
 
-def load_response_to_dict(response):
+def load_response_to_dict(response: HttpResponse) -> dict:
+    """Make dict of response in JSON format
+
+    Args:
+        response (HttpResponse): Web page response
+
+    Returns:
+        dict: JSON data packed to dictionary
+    """
     data = json.loads(response)
     try:
         return data['items']
@@ -26,7 +52,15 @@ def load_response_to_dict(response):
         return {}
 
 
-def extract_just_neccessary_info(books):
+def extract_just_neccessary_info(books: dict) -> List(Book):
+    """Pass dictionary with books data and create list of book objects based on this data
+
+    Args:
+        books (dict): All books data 
+
+    Returns:
+        [Book]: List of Book objects based on passed data
+    """
     books_with_just_neccessary_info = []
 
     for book in books:
@@ -38,6 +72,9 @@ def extract_just_neccessary_info(books):
 
 
 class BookInfoExtractor:
+    """
+    Class handling the extraction of information from book info dictionary and making book objects from it
+    """
 
     def __init__(self, book_info_dictionary):
         self.book_info_dictionary = book_info_dictionary
@@ -118,6 +155,9 @@ class BookInfoExtractor:
 
 
 class SmartDatetimeParser:
+    """
+    Class making datetime objects of passed string, handling the exceptions when partial data is passed
+    """
     def __init__(self, datetime_string):
         self.datetime_string = datetime_string
 
